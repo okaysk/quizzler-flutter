@@ -29,10 +29,31 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
-  // Question q1 = Question(q: 'You can lead a cow down stairs but not up stairs.', a: false;
 
-  // QuizBrain quizBrain = QuizBrain();
-  // int questionNumber = 0; delete
+  void checkAnswer(bool userPickedAnswer) {
+    bool correctAnswer = quizBrain.getCorrectAnswer();
+    if (correctAnswer == userPickedAnswer) {
+      print('user got it right!');
+      scoreKeeper.add(
+        Icon(
+          Icons.check,
+          color: Colors.green,
+        ),
+      );
+    } else {
+      print('user got it wrong');
+      scoreKeeper.add(
+        Icon(
+          Icons.close,
+          color: Colors.red,
+        ),
+      );
+    }
+
+    setState(() {
+      quizBrain.nextQuestion();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +68,6 @@ class _QuizPageState extends State<QuizPage> {
             child: Center(
               child: Text(
                 // 'This is where the question text will go.',
-                // questions[questionNumber],
-                // quizBrain.questionBank[questionNumber].questionText,
                 quizBrain.getQuestionText(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -74,24 +93,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
-
-                bool correctAnswer = quizBrain.getCorrectAnswer();
-                if (correctAnswer) {
-                  print('user got it right!');
-                } else {
-                  print('user got it wrong');
-                }
-
-                setState(() {
-                  quizBrain.nextQuestion();
-                  // scoreKeeper.add(
-                  //   // Icon(
-                  //   //   Icons.check,
-                  //   //   color: Colors.green,
-                  //   // ),
-                  // );
-                  print('true pressed');
-                });
+                checkAnswer(true);
               },
             ),
           ),
@@ -109,24 +111,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correctAnswer = quizBrain.getCorrectAnswer();
-                if (!correctAnswer) {
-                  // Icon(
-                  //   Icons.check,
-                  //   color: Colors.green,
-                  // );
-                  print('user got it right!');
-                } else {
-                  // Icon(
-                  //   Icons.cancel,
-                  //   color: Colors.red,
-                  // );
-                  print('user got it wrong');
-                }
-                setState(() {
-                  quizBrain.nextQuestion();
-                });
-                //The user picked false.
+                checkAnswer(false);
               },
             ),
           ),
