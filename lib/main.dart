@@ -32,25 +32,26 @@ class _QuizPageState extends State<QuizPage> {
 
   void checkAnswer(bool userPickedAnswer) {
     bool correctAnswer = quizBrain.getCorrectAnswer();
-    if (correctAnswer == userPickedAnswer) {
-      print('user got it right!');
-      scoreKeeper.add(
-        Icon(
-          Icons.check,
-          color: Colors.green,
-        ),
-      );
-    } else {
-      print('user got it wrong');
-      scoreKeeper.add(
-        Icon(
-          Icons.close,
-          color: Colors.red,
-        ),
-      );
-    }
 
     setState(() {
+      if (correctAnswer == userPickedAnswer) {
+        print('user got it right!');
+        scoreKeeper.add(
+          Icon(
+            Icons.check,
+            color: Colors.green,
+          ),
+        );
+      } else {
+        print('user got it wrong');
+        scoreKeeper.add(
+          Icon(
+            Icons.close,
+            color: Colors.red,
+          ),
+        );
+      }
+
       quizBrain.nextQuestion();
     });
   }
