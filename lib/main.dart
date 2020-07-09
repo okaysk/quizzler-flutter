@@ -32,7 +32,7 @@ class _QuizPageState extends State<QuizPage> {
   // Question q1 = Question(q: 'You can lead a cow down stairs but not up stairs.', a: false;
 
   // QuizBrain quizBrain = QuizBrain();
-  int questionNumber = 0;
+  // int questionNumber = 0; delete
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +48,8 @@ class _QuizPageState extends State<QuizPage> {
               child: Text(
                 // 'This is where the question text will go.',
                 // questions[questionNumber],
-                quizBrain.questionBank[questionNumber].questionText,
-                // quizBrain.getQuestionText(questionNumber),
+                // quizBrain.questionBank[questionNumber].questionText,
+                quizBrain.getQuestionText(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -75,7 +75,7 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 //The user picked true.
 
-                bool correctAnswer = quizBrain.questionBank[questionNumber].questionAnswer;
+                bool correctAnswer = quizBrain.getCorrectAnswer();
                 if (correctAnswer) {
                   print('user got it right!');
                 } else {
@@ -83,7 +83,7 @@ class _QuizPageState extends State<QuizPage> {
                 }
 
                 setState(() {
-                  questionNumber++;
+                  quizBrain.nextQuestion();
                   // scoreKeeper.add(
                   //   // Icon(
                   //   //   Icons.check,
@@ -109,7 +109,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correctAnswer = quizBrain.questionBank[questionNumber].questionAnswer;
+                bool correctAnswer = quizBrain.getCorrectAnswer();
                 if (!correctAnswer) {
                   // Icon(
                   //   Icons.check,
@@ -124,7 +124,7 @@ class _QuizPageState extends State<QuizPage> {
                   print('user got it wrong');
                 }
                 setState(() {
-                  questionNumber++;
+                  quizBrain.nextQuestion();
                 });
                 //The user picked false.
               },
